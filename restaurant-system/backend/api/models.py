@@ -24,6 +24,7 @@ class Dish(models.Model):
 
     # Cada prato pertence a uma categoria. 'dishes' é o nome da relação inversa, permitindo aceder os pratos de uma categoria usando category.dishes.all(). on_delete=models.CASCADE significa que se uma categoria for apagada, todos os pratos associados a ela também o serão.
     category = models.ForeignKey(Category, related_name='dishes', on_delete=models.CASCADE)
+    ingredients = models.ManyToManyField(Ingredient, related_name='dishes')
 
     def __str__(self):
         return self.name
@@ -56,6 +57,7 @@ class Order(models.Model):
     def summary(self):
         return [
             {'dish': item.dish.name, 
+            'category': item.dish.category.name,
             'quantity': item.quantity, 
             'price': item.dish.price,
             'ingredients': [ingredient.name for ingredient in item.dish.ingredients.all()],

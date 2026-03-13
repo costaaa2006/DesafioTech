@@ -3,10 +3,14 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Order
-from .serializers import OrderSerializer
+from .serializers import OrderSerializer, KitchenOrderSerializer
+from django.shortcuts import render
 
-@api_view(['POST'])
-def create_order(request):
+def kitchen_dashboard_view(request):
+    return render(request, "api/kitchen_dashboard.html")
+
+@api_view(["POST"])
+def orders(request):
     serializer = OrderSerializer(data=request.data)
 
     if serializer.is_valid():
@@ -15,15 +19,7 @@ def create_order(request):
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
-def list_orders(request):
-
-    orders = Order.objects.all().order_by('-created_at')
-    serializer = OrderSerializer(orders, many=True)
-
-    return Response(serializer.data)
-
-@api_view(['PATCH'])
+@api_view(["PATCH"])
 def update_order_status(request, order_id):
 
     try:
@@ -38,6 +34,13 @@ def update_order_status(request, order_id):
     order.status = new_status
     order.save()
     return Response(OrderSerializer(order).data)
+
+@api_view(["GET"])
+def kitchen_dashboard(request):
+    orders = Order.objects.exclude(status="CO")
+    serializer = KitchenOrderSerializer(orders, many=True)
+
+    return Response(serializer.data)
 
 @api_view(['DELETE'])
 def delete_order(request, order_id):

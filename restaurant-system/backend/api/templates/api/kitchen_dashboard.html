@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kitchen Dashboard</title>
+    <link rel="stylesheet" href="{% static 'api/css/kitchen_dashboard.css' %}">
+</head>
+
+<body>
+    <h1>Kitchen Dashboard</h1>
+    <button id="refresh-btn">Refresh</button>
+
+    <div class="dashboard">
+        <div class="column" data-status="OR">
+            <h2>Order Preview</h2>
+            <div class="cards-container" id="OR"></div>
+        </div>
+        <div class="column" data-status="PR">
+            <h2>Preparing</h2>
+            <div class="cards-container" id="PR"></div>
+        </div>
+        <div class="column" data-status="CD">
+            <h2>Cooling Down</h2>
+            <div class="cards-container" id="CD"></div>
+        </div>
+        <div class="column" data-status="RS">
+            <h2>Ready to Serve</h2>
+            <div class="cards-container" id="RS"></div>
+        </div>
+        <div class="column" data-status="CO">
+            <h2>Concluded</h2>
+            <div class="cards-container" id="CO"></div>
+        </div>
+    </div>
+
+    <script src="{% static 'api/js/kitchen_dashboard.js' %}"></script>
+</body>
+
+</html>
