@@ -77,6 +77,18 @@ async function loadOrders() {
 
         const card = createCard(order);
         column.appendChild(card);
+
+        // Se já está em CO, calcular o tempo restante até desaparecer
+        if (order.status === "CO") {
+            const updatedAt = new Date(order.updated_at).getTime();
+            const elapsed = Date.now() - updatedAt;
+            const remaining = Math.max(0, 10000 - elapsed);
+
+            setTimeout(() => {
+                card.classList.add('card-fade-out');
+                card.addEventListener('animationend', () => card.remove(), { once: true });
+            }, remaining);
+        }
     });
 }
 

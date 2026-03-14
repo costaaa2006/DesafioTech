@@ -15,4 +15,10 @@ urlpatterns = [
 
     # Deletar um pedido
     path('orders/<int:order_id>/', views.delete_order, name='delete_order'),
+
+    # Listar categorias e pratos 
+    path('categories/', views.category_list, name='category_list'),
+
+    # Listar mesas
+    path('tables/', views.table_list, name='table_list'),
 ]

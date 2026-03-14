@@ -2,9 +2,11 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Order
-from .serializers import OrderSerializer, KitchenOrderSerializer
+from .models import Order, Category, Table
+from .serializers import OrderSerializer, KitchenOrderSerializer, CategorySerializer, TableSerializer
 from django.shortcuts import render
+from django.utils import timezone
+from datetime import timedelta
 
 def kitchen_dashboard_view(request):
     return render(request, "api/kitchen_dashboard.html")
@@ -37,9 +39,12 @@ def update_order_status(request, order_id):
 
 @api_view(["GET"])
 def kitchen_dashboard(request):
-    orders = Order.objects.exclude(status="CO")
-    serializer = KitchenOrderSerializer(orders, many=True)
+    cutoff = timezone.now() - timedelta(seconds=10)
 
+    orders = Order.objects.exclude(status="CO") | \
+             Order.objects.filter(status="CO", updated_at__gte=cutoff)
+
+    serializer = KitchenOrderSerializer(orders, many=True)
     return Response(serializer.data)
 
 @api_view(['DELETE'])
@@ -52,3 +57,15 @@ def delete_order(request, order_id):
     
     order.delete()
     return Response({"detail": "Pedido removido com sucesso."}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(["GET"])
+def category_list(request):
+    categories = Category.objects.prefetch_related('dishes__ingredients')
+    serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def table_list(request):
+    tables = Table.objects.all()
+    serializer = TableSerializer(tables, many=True)
+    return Response(serializer.data)

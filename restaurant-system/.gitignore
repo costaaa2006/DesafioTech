@@ -3,3 +3,6 @@ venv/
 __pycache__/
 db.sqlite3
 .DS_Store
+.gitignore
+__init__.py
+hero.png

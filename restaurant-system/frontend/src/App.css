@@ -1,0 +1,26 @@
+/* Reset global — os estilos específicos estão em styles/clientMenu.css */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*É o ficheiro de estilos globais que se aplica a toda a aplicação antes de qualquer componente carregar. 
+O que está lá agora é essencialmente um reset — remove as margens e paddings que os browsers adicionam por defeito, 
+define que todas as caixas incluem o border no tamanho (box-sizing: border-box), e força o body e o #root a ocupar 
+100% da altura do ecrã. Sem este último detalhe o cm-root do ClientMenu não conseguia preencher a página toda. 
+É importado no main.jsx antes de tudo o resto, por isso os seus estilos servem de base para tudo o que vem a seguir.*/
