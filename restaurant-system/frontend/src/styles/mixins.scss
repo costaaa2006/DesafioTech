@@ -1,0 +1,23 @@
+@use "./variables" as *;
+
+@mixin flex($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin text($size: inherit,$weight: inherit,$color: inherit,$font: $font-arial) {
+    font-size: $size;
+    font-weight: $weight;
+    color: $color;
+    font-family: $font;
+}
+
+@mixin fade-up($duration: 0.4s, $delay: 0s) {
+    animation: fadeUp $duration ease $delay both;
+}
+
+@mixin pulse($delay: 0s) {
+    animation: pulse 1.2s ease-in-out $delay infinite;
+}

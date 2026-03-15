@@ -1,15 +1,18 @@
 services:
-
-  backend:
+  django:
     build: ./backend
-    volumes:
-      - ./backend:/app
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend:/app
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
 
-#  frontend:
-#    build: ./frontend
-#    volumes:
-#      - ./frontend:/app
-#    ports:
-#      - "3000:3000"
+  react:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - django

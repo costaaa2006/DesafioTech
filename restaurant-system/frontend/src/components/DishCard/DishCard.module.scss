@@ -1,0 +1,78 @@
+@use "../../styles/_general.scss" as *;
+
+.dishCard {
+    @include flex(column, center, center);
+    width: 20rem;
+    height: 100%;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    border: 2px solid $border;
+    background-color: $card;
+
+    .dishName {
+        @include text(1rem, 400, $white, $titles-font);
+    }
+
+    .dishDesc {
+        @include text(0.875rem, 400, $muted, $text-font);
+    }
+
+    .dishIngredients {
+        @include text(0.875rem, 400, $muted, $text-font);
+    }
+
+    .dishPrice {
+        @include text(1rem, 400, $gold, $text-font);
+    }
+
+    .dishFooter {
+        @include flex(row, space-between, center);
+        width: 100%;
+        padding-top: 1rem;
+        margin-top: auto;
+
+        .qtyCtrl {
+            @include flex(row, center, center);
+            gap: 0.75rem;
+
+            .qtyBtn {
+                @include text(0.875rem, 400, $white, $text-font);
+                @include flex(row, center, center);
+                border: 1px solid $border;
+                border-radius: 50%;
+                width: 2rem;
+                height: 2rem;
+                background-color: $card;
+                cursor: pointer;
+            }
+
+            .qtyVal {
+                @include text(0.875rem, 400, $white, $text-font);
+            }
+        }
+
+        .addBtn {
+            width: 7rem;
+            height: 2.5rem;
+            border: 2px solid $gold;
+            @include text(0.875rem, 400, $gold, $text-font);
+            background-color: $card;
+            @include flex(row, center, center);
+            cursor: pointer;
+
+            &:hover:not(:disabled) {
+                background-color: $cream;
+            }
+
+            &:disabled {
+                opacity: 0.3;
+                cursor: default;
+            }
+        }
+
+        .added {
+            @include text(0.875rem, 400, $card, $text-font);
+            background-color: $gold;
+        }
+    }
+}

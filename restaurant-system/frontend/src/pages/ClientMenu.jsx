@@ -2,11 +2,12 @@
 // É aqui que vivem as funções de lógica como adicionar ao pedido, submeter, e fazer reset.
 
 import { useState, useEffect } from "react";
-import TableOverlay from "../components/TableOverlay";
-import DishCard from "../components/DishCard";
-import OrderPanel from "../components/OrderPanel";
+import TableOverlay from "../components/TableOverlay/TableOverlay";
+import DishCard from "../components/DishCard/DishCard";
+import OrderPanel from "../components/OrderPanel/OrderPanel";
 import { fetchCategories, fetchTableId, submitOrder } from "../services/menuService";
-import "../styles/clientMenu.css";
+
+import styles from "./ClientMenu.module.scss";
 
 export default function ClientMenu() {
     const [tableNumber, setTableNumber] = useState(1);
@@ -17,12 +18,13 @@ export default function ClientMenu() {
     const [activeCategory, setActiveCategory] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const [quantities, setQuantities] = useState({}); 
-    const [order, setOrder] = useState([]);   
+    const [quantities, setQuantities] = useState({});
+    const [order, setOrder] = useState([]);
 
     const [showSuccess, setShowSuccess] = useState(false);
     const [submitting, setSubmitting] = useState(false);
-    const [mobileOrderOpen, setMobileOrderOpen] = useState(false);
+
+    const [showWarning, setShowWarning] = useState(false);
 
     // Carregar menu da API
     useEffect(() => {
@@ -70,7 +72,11 @@ export default function ClientMenu() {
 
     // Submeter pedido
     async function handleSubmit() {
-        if (order.length === 0 || submitting) return;
+        if (order.length === 0) {
+            setShowWarning(true);
+            setTimeout(() => setShowWarning(false), 3000); // desaparece após 3 segundos
+            return;
+        }
         setSubmitting(true);
         try {
             await submitOrder(tableId, order);
@@ -96,7 +102,7 @@ export default function ClientMenu() {
     const totalItems = order.reduce((sum, i) => sum + i.qty, 0);
 
     return (
-        <div className="cm-root">
+        <div className={styles.root}>
 
             {/* Overlay seleção de mesa */}
             <TableOverlay
@@ -109,36 +115,36 @@ export default function ClientMenu() {
 
             {/* Overlay sucesso */}
             {showSuccess && (
-                <div className="cm-success">
-                    <div className="cm-success-box">
-                        <div className="cm-success-icon">✓</div>
+                <div className={styles.success}>
+                    <div className={styles.successBox}>
+                        <div className={styles.successIcon}>✓</div>
                         <h2>Pedido Enviado!</h2>
                         <p>O seu pedido foi enviado para a cozinha.<br />Será servido em breve.</p>
-                        <button className="cm-cta" onClick={handleReset}>Novo Pedido</button>
+                        <button className={styles.cta} onClick={handleReset}>Novo Pedido</button>
                     </div>
                 </div>
             )}
 
             {/* Layout principal */}
-            <div className="cm-layout">
+            <div className={styles.layout}>
 
                 {/* Painel do menu */}
-                <main className="cm-menu">
-                    <header className="cm-header">
-                        <div className="cm-header-top">
-                            <span className="cm-header-star">✦</span>
-                            <span className="cm-header-table">
+                <main className={styles.menu}>
+                    <header className={styles.header}>
+                        <div className={styles.headerTop}>
+                            <span className={styles.headerStar}>✦</span>
+                            <span className={styles.headerTable}>
                                 {tableConfirmed ? `Mesa ${tableNumber}` : "—"}
                             </span>
                         </div>
-                        <h1 className="cm-menu-title">Menu</h1>
+                        <h1 className={styles.menuTitle}>Menu</h1>
                     </header>
 
-                    <nav className="cm-tabs">
+                    <nav className={styles.tabs}>
                         {categories.map(cat => (
                             <button
                                 key={cat.id}
-                                className={`cm-tab${activeCategory === cat.id ? " active" : ""}`}
+                                className={`${styles.tabBtn} ${cat.id === activeCategory ? styles.active : ""}`}
                                 onClick={() => setActiveCategory(cat.id)}
                             >
                                 {cat.name}
@@ -146,15 +152,15 @@ export default function ClientMenu() {
                         ))}
                     </nav>
 
-                    <div className="cm-dishes">
+                    <div className={styles.dishes}>
                         {loading ? (
-                            <div className="cm-loading">
-                                <div className="cm-loading-dot" />
-                                <div className="cm-loading-dot" />
-                                <div className="cm-loading-dot" />
+                            <div className={styles.loading}>
+                                <div className={styles.loadingDot} />
+                                <div className={styles.loadingDot} />
+                                <div className={styles.loadingDot} />
                             </div>
                         ) : (
-                            <div className="cm-dishes-grid">
+                            <div className={styles.dishesGrid}>
                                 {activeDishes.map(dish => (
                                     <DishCard
                                         key={dish.id}
@@ -181,6 +187,14 @@ export default function ClientMenu() {
                     onSubmit={handleSubmit}
                 />
             </div>
+
+            {/* Aviso sem pratos */}
+            {showWarning && (
+                <div className={styles.warning}>
+                    Adicione pelo menos um prato antes de fazer o pedido.
+                </div>
+            )}
+            
         </div>
     );
 }

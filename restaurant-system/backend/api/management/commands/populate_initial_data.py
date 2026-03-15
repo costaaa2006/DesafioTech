@@ -34,6 +34,8 @@ class Command(BaseCommand):
             {"name": "Bife Grelhado com Ervas", "description": "Bife suculento grelhado com ervas aromáticas, perfeito para os amantes de carne.", "price": 12.50, "category": "Carne","ingredients": ["Bife de vaca","Alho","Alecrim","Tomilho", "Sal", "Pimenta"]},
             {"name": "Frango ao Curry", "description": "Frango macio cozido num molho cremoso de curry com um toque exótico.", "price": 11.50, "category": "Carne","ingredients": ["Peito de frango","Cebola","Alho","Leite de coco", "Curry em pó", "Azeite", "Sal","Pimenta"]},
             {"name": "Costeletas de Porco com Molho Barbecue", "description": "Costeletas suculentas assadas com molho barbecue caseiro, sabor intenso e defumado.", "price": 14.50, "category": "Carne","ingredients": ["Costeletas de porco","Molho Barbecue","Cebola","Alho", "Azeite", "Sal","Pimenta"]},
+            {"name": "Bife à Portuguesa", "description": "Bife suculento salteado em azeite e alho, servido com presunto crocante, ovo estrelado e batatas fritas.", "price": 15.00, "category": "Carne","ingredients": ["Bife de vaca","Alho","Louro","Presunto", "Ovo Estrelado","Batatas Fritas","Azeite", "Sal","Pimenta"]},
+
 
             {"name": "Salmão Grelhado com Limão", "description": "Salmão suculento grelhado, com um toque fresco de limão e ervas aromáticas.", "price": 14.00, "category": "Peixe","ingredients": ["Salmão", "Limão", "Alho", "Azeite", "Salsa", "Sal", "Pimenta"]},
             {"name": "Bacalhau à Brás", "description": "Tradicional prato português de bacalhau desfiado com ovos e batata, cremoso e saboroso.", "price": 12.50, "category": "Peixe","ingredients": ["Bacalhau", "Ovos", "Batata palha", "Azeite", "Cebola","Salsa", "Sal", "Pimenta"]},

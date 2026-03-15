@@ -1,0 +1,115 @@
+@use "../../styles/_general.scss" as *;
+
+.orderPanel {
+    background-color: $surface;
+    border-left: 1px solid $border;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+
+    .orderInner {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 24px 20px;
+        overflow: hidden;
+
+        .orderTitle {
+            @include text(1.6rem, 400, $cream, $titles-font);
+            margin-bottom: 4px;
+        }
+
+        .orderTableLabel {
+            @include text(0.85rem, 300, $muted, $text-font);
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid $border;
+        }
+
+        .orderItems {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: $border transparent;
+
+            .orderEmpty {
+                @include text(13px, 300, $muted, $text-font);
+                text-align: center;
+                padding: 32px 0;
+            }
+
+            .orderItem {
+                @include flex(row,center,center);
+                gap: 8px;
+                padding: 10px 0;
+                border-bottom: 1px solid $border;
+
+                .orderItemName {
+                    @include text(13px, 400, $cream, $text-font);
+                    flex: 1;
+                }
+
+                .orderItemQty {
+                    @include text(12px, 300, $muted, $text-font);
+                }
+
+                .orderItemPrice {
+                    @include text(13px, 400, $gold, $text-font);
+                    min-width: 44px;
+                    text-align: right;
+                }
+
+                .removeBtn {
+                    background: none;
+                    border: none;
+                    @include text(16px, 400, $muted, $text-font);
+                    cursor: pointer;
+                    padding: 0 4px;
+                    line-height: 1;
+                    transition: color 0.15s;
+                    margin-left:auto;
+
+                    &:hover { color: $red; }
+                }
+            }
+        }
+
+        .orderFooter {
+            flex-shrink: 0;
+            padding-top: 16px;
+            border-top: 1px solid $border;
+            margin-top: 16px;
+
+            .totalRow {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 16px;
+
+                .totalLabel {
+                    @include text(12px, 500, $muted, $text-font);
+                    letter-spacing: 0.1em;
+                    text-transform: uppercase;
+                }
+
+                .totalValue {
+                    @include text(1.6rem, 400, $gold, $titles-font);
+                }
+            }
+
+            .submitBtn {
+                width: 100%;
+                background-color: $gold;
+                border: none;
+                padding: 14px;
+                @include text(12px, 500, $bg, $text-font);
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                cursor: pointer;
+
+                &:hover:not(:disabled) { background-color: $cream; }
+                &:disabled { opacity: 0.3; cursor: default; }
+            }
+        }
+    }
+}

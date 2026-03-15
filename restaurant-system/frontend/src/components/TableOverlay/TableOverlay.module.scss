@@ -1,0 +1,80 @@
+@use "../../styles/_general.scss" as *;
+
+.overlay {
+    @include fade-up(0.4s, 0.2s);
+    position: fixed;
+    inset: 0;
+    @include flex(column, center, center);
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+
+    .overlayBox {
+        @include flex(column, center, center);
+        @include text(1.5rem, 400, $white, $titles-font);
+        padding: 2rem;
+        border-radius: 1rem;
+        background-color: $card;
+        margin-top: 0;
+
+        .star {
+            color: $gold;
+        }
+
+        h1 {
+            padding-bottom: 1rem;
+            color: $white;
+        }
+
+        p {
+            padding-bottom: 1rem;
+            color: $white;
+        }
+
+        .tableRow {
+
+            @include flex(row, center, center);
+
+            .numBtn {
+                @include text(0.875rem, 400, $white, $text-font);
+                @include flex(row, center, center);
+                border: 1px solid $border;
+                border-radius: 50%;
+                width: 2rem;
+                height: 2rem;
+                background-color: $card;
+                cursor: pointer;
+            }
+
+            .tableNum {
+                @include text(1.5rem, 400, $white, $titles-font);
+                margin: 0 1.5rem;
+            }
+        }
+
+        .cta {
+            width: 10rem;
+            height: 2.5rem;
+            border: 2px solid $gold;
+            background-color: $gold;
+            @include text(0.875rem, 600, $card, $text-font);
+            @include flex(row, center, center);
+            margin-top: 1.0rem;
+            cursor: pointer;
+
+            &:hover:not(:disabled) {
+                background-color: $cream;
+            }
+
+            &:disabled {
+                opacity: 0.3;
+                cursor: default;
+            }
+        }
+    }
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+}
