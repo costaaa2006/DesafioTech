@@ -31,7 +31,7 @@ Sistema de gestão de pedidos para um Restaurante, desenvolvido como desafio té
 2. **Inicie os serviços**:
     docker compose up --build
 
-#### Gestão de Volumes e Containers Docker (Comandos Úteis)
+#### Gestão de Containers Docker (Comandos Úteis)
 
 **Listar containers (Em execução e Parados)**:
 
@@ -84,4 +84,26 @@ docker-compose down
 ## **Acesso às Interfaces Gráficas**:
 
 - **Frontend**: http://localhost:5173
-- **Backend API**: https://localhost:8000/api/
+- **Backend API**: https://localhost:8000/api/*
+
+*(endpoints)
+
+## Decisões arquiteturais ##
+- Separação clara entre a interface do cliente e a interface da cozinha — duas aplicações distintas com responsabilidades diferentes
+
+- Uso de REST API com Django REST Framework como camada de comunicação entre frontend e backend
+
+- SCSS no React para evitar conflitos de estilos e manter os componentes isolados
+
+- Arquitetura de componentes React com separação entre pages, components e services
+
+- Containerização com Docker para garantir que o ambiente é reproduzível em qualquer máquina
+
+## Melhorias (com mais tempo) ##
+- Atualizações em tempo real com o uso de WebSockets
+
+- Dashboard da cozinha
+
+- Autenticação. Qualquer pessoa pode aceder ao dashboard da cozinha, devia haver login. (neste projeto não era pedido mas era um conceito que gostava de explorar)
+
+**Projeto desenvolvido por:** Francisco Costa 
