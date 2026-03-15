@@ -26,7 +26,7 @@ Sistema de gestão de pedidos para um Restaurante, desenvolvido como desafio té
 # Instalação (feita com docker)
 1. **Clone o respositório e navegue até à pasta do projeto**:
     git clone https://github.com/costaaa2006/DesafioTech
-    cd restarant-system
+    cd restaurant-system
 
 2. **Inicie os serviços**:
     docker compose up --build
